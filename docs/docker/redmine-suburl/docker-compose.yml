@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+
+  redmine:
+    # cd redmine && docker build -t hg/redmine .
+    image: hg/redmine
+    restart: always
+    # nginx.conf proxy_pass http://127.0.0.1/redmine/;
+    ports:
+      - 9000:3000
+    environment:
+      # for sub url
+      RAILS_RELATIVE_URL_ROOT: '/redmine'
+      REDMINE_DB_MYSQL: db
+      REDMINE_DB_PASSWORD: hg
+      REDMINE_SECRET_KEY_BASE: supersecretkey
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: hg
+      MYSQL_DATABASE: redmine
+    # for japanese and chinese
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci

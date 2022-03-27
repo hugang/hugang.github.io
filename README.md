@@ -1,19 +1,5 @@
-# 文档
+# 整理一些学习资料
 
-## 自用
+- [Docker](./docker.md)
 
-[PostgreSQL](docs/postgresql.md)
-
-[MySQL](docs/mysql.md)
-
-
-
-[mybatis](docs/mybatis.md)
-
-[设计模式](docs/design_pattern.md)
-
-
-
-## 链接
-
-[Git飞行规则(Flight Rules)](https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md)
+- [CI-CD](ci-cd/cicd.md)

@@ -1,0 +1,1 @@
+sudo docker run --rm -v $(pwd)/data:/home/gradle -it gradle:jdk8-hotspot bash

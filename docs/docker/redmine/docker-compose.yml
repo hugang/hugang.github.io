@@ -1,0 +1,16 @@
+version: "3"
+services:
+  redmine:
+    build:
+      context: ./redmine
+      dockerfile: Dockerfile
+    environment:
+      RAILS_RELATIVE_URL_ROOT: "/redmine"
+  web-proxy:
+    image: nginx:1.17-alpine
+    volumes:
+      - ./web-proxy/default.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - redmine
+    ports:
+      - 80:80

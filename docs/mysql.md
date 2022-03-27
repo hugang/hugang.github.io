@@ -1,12 +1,14 @@
 # MySQL
 
-## Download
+## 在Linux下的使用
+
+### Download
 
 ```shell
 git clone -b 5.7 https://github.com/mysql/mysql-server.git --depth=1
 ```
 
-## library
+### library
 
 `boost`
 
@@ -21,7 +23,7 @@ wget  http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.
 sudo pacman -S rpcsvc-proto
 ```
 
-## Configuration
+### Configuration
 
 ```shell
 cmake . \
@@ -41,7 +43,7 @@ cmake . \
 
 ```
 
-## installation
+### installation
 
 ```shell
 # compile & install
@@ -60,7 +62,7 @@ chmod 755 /usr/local/mysql/
 --initialize-insecure
 ```
 
-## edit /etc/my.cnf
+### edit /etc/my.cnf
 
 ```shell
 # before
@@ -73,7 +75,7 @@ datadir = /usr/local/mysql/data
 skip-grant-tables
 ```
 
-## start service
+### start service
 
 ```bash
 #start service
@@ -85,3 +87,33 @@ mysql> UPDATE user SET authentication_string=password('123456') WHERE     user='
 mysql> flush privileges;
 
 ```
+
+
+
+## 在Windows下的使用
+
+### 下载mysql
+
+https://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.31-winx64.zip
+
+
+
+### 初期化数据文件夹
+
+mysqld --user=mysql --basedir C:\tools\mysql-5.7.31-winx64 --datadir=C:\tools\mysql-5.7.31-winx64\data\ --log-error-v erbosity=3 --initialize-insecure
+
+### 启动服务
+mysqld --user=mysql &
+
+### 连接服务
+mysql -uroot -p
+
+### 更改密码
+use mysql;
+UPDATE user SET authentication_string=password('123456') WHERE user='root';
+flush privileges;
+
+### truble shooting
+Windows Error Message: Missing MSVCP120.dll File
+Update for Visual C++ 2013 and Visual C++ Redistributable Package
+http://download.microsoft.com/download/8/2/9/829ac8b2-e111-4f58-9b23-205a5e7d656a/vcredist_x64.exe
