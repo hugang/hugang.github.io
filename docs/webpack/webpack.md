@@ -1,8 +1,6 @@
 ## 初めてのwebpack
 https://webpack.js.org/
 
-![image-20220106073326355](./images/image-20220106073326355.png)
-
 1. 用意する開発環境
 
 ```
