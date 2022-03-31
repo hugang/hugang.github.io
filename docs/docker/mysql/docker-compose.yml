@@ -1,10 +1,10 @@
 version: '3.8'
 services:
-  innox-mysql:
+  mysql-server:
     environment:
       MYSQL_ROOT_PASSWORD: root
     restart: always
-    container_name: ndco-mysql
+    container_name: mysql-server
     image: mysql:5.7
     command:
       --character-set-server=utf8mb4
