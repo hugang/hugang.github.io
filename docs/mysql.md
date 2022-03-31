@@ -88,6 +88,23 @@ mysql> flush privileges;
 
 ```
 
+### create user and grant remote access
+```
+my.cnf (my.ini on windows)
+
+#Replace xxx with your IP Address 
+bind-address        = xxx.xxx.xxx.xxx
+Then:
+
+CREATE USER 'myuser'@'localhost' IDENTIFIED BY 'mypass';
+CREATE USER 'myuser'@'%' IDENTIFIED BY 'mypass';
+Then:
+
+GRANT ALL ON *.* TO 'myuser'@'localhost';
+GRANT ALL ON *.* TO 'myuser'@'%';
+FLUSH PRIVILEGES;
+Depending on your OS, you may have to open port 3306 to allow remote connections.
+```
 
 
 ## 在Windows下的使用
