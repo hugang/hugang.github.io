@@ -30,3 +30,18 @@ firewall-cmd --add-service=http --zone=public --permanent
 firewall-cmd --reload
 
 ```
+
+
+## 认证SSL
+### 生成SSL key
+openssl genrsa -out privkey2.key 1024/2038
+openssl req -new -x509 -key privkey2.key -out server2.pem -days 365
+mkcert hugang.org localhost 127.0.0.1 192.168.227.150
+mkcert -install
+
+### 将生成的SSL Key拷贝到Nginx的相关目录并且修改SSL配置
+
+### 将认证用的根证书导出
+mkcert -CAROOT
+
+### 修改rootCA.pem为rootCA.pem.cer，双击导入为根CA认证机关
