@@ -31,7 +31,12 @@ sudo hostnamectl set-hostname node2
 sudo setenforce 0
 sudo swapoff -a
 sudo systemctl stop firewalld
-
+firewall-cmd --add-port=6443/tcp --permanent
+firewall-cmd --add-port=2379-2380/tcp --permanent
+firewall-cmd --add-port=10250/tcp --permanent
+firewall-cmd --add-port=10251/tcp --permanent
+firewall-cmd --add-port=10252/tcp --permanent
+firewall-cmd --reload
 
 
 =======================================================
@@ -91,7 +96,14 @@ sudo systemctl enable --now kubelet
 
 =======================================================
 初始化kubernetes
-kubeadm init --apiserver-advertise-address=192.168.0.107 --control-plane-endpoint=master --service-cidr=172.96.0.0/16 --pod-network-cidr=172.77.0.0/16
+kubeadm init --apiserver-advertise-address=192.168.0.105 --control-plane-endpoint=master --service-cidr=172.96.0.0/16 --pod-network-cidr=172.77.0.0/16
+遇到问题
+- container runtime is not running
+sudo rm /etc/containerd/config.toml
+sudo systemctl restart containerd
+
+- tc not found in system path
+dnf install -y iproute-tc
 
 To start using your cluster, you need to run the following as a regular user:
 
@@ -119,10 +131,10 @@ Then you can join any number of worker nodes by running the following on each as
 kubeadm join master:6443 --token 8axzyu.lcfqsq6h7by3w2ur  --discovery-token-ca-cert-hash sha256:271ab8acc91b35bcf2c3f28b9dbdace56b4b3d02370889589440c2141c3b26f3
 
 curl https://docs.projectcalico.org/manifests/calico.yaml -O
+kubectl apply -f calico.yaml
 
 dashboard
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
-
 
 apiVersion: v1
 kind: ServiceAccount

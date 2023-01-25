@@ -1,0 +1,5 @@
+mysql> create user root@'%' identified by '123456';
+mysql> GRANT ALL ON *.* TO 'root'@'%';
+mysql> flush privileges;
+
+ry_config_20220929.sql

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  labels:
+    app: ruoyi-nginx
+  name: ruoyi-nginx
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ruoyi-nginx
+  template:
+    metadata:
+      labels:
+        app: ruoyi-nginx
+    spec:
+      containers:
+        - image: 192.168.0.107:5000/ruoyi-nginx:latest
+          name: ruoyi-nginx
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  labels:
+    app: ruoyi-nginx
+  name: ruoyi-nginx
+
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: ruoyi-nginx
+  type: NodePort

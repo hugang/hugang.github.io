@@ -1,0 +1,39 @@
+docker build -t ruoyi-nginx:latest .
+docker images
+docker tag 03fb9ec9110a 192.168.0.107:5000/ruoyi-nginx
+docker push 192.168.0.107:5000/ruoyi-nginx
+
+docker build -t ruoyi-auth:latest .
+docker images
+docker tag 03fb9ec9110a 192.168.0.107:5000/ruoyi-auth
+docker push 192.168.0.107:5000/ruoyi-auth
+
+docker build -t ruoyi-gateway:latest .
+docker images
+docker tag 03fb9ec9110a 192.168.0.107:5000/ruoyi-gateway
+docker push 192.168.0.107:5000/ruoyi-gateway
+
+docker build -t   ruoyi-system:latest .
+docker images
+docker tag 03fb9ec9110a 192.168.0.107:5000/ruoyi-system
+docker push 192.168.0.107:5000/ruoyi-system
+
+docker build -t ruoyi-gen:latest .
+docker images
+docker tag 03fb9ec9110a 192.168.0.107:5000/ruoyi-gen
+docker push 192.168.0.107:5000/ruoyi-gen
+
+docker build -t ruoyi-job:latest .
+docker images
+docker tag 03fb9ec9110a 192.168.0.107:5000/ruoyi-job
+docker push 192.168.0.107:5000/ruoyi-job
+
+docker build -t ruoyi-file:latest .
+docker images
+docker tag 03fb9ec9110a 192.168.0.107:5000/ruoyi-file
+docker push 192.168.0.107:5000/ruoyi-file
+
+docker build -t ruoyi-monitor:latest .
+docker images
+docker tag 03fb9ec9110a 192.168.0.107:5000/ruoyi-monitor
+docker push 192.168.0.107:5000/ruoyi-monitor

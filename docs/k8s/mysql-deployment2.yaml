@@ -1,0 +1,64 @@
+apiVersion: v1 #类型为Namespace
+kind: Namespace #类型为Namespace
+metadata:
+  name: ssx-ns #命名空间名称
+  labels:
+    name: lb-ssx-ns
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mysql #为该Deployment设置key为app，value为mysql的标签
+  name: ssx-mysql-dm
+  namespace: ssx-ns
+spec:
+  replicas: 1
+  selector: #标签选择器，与上面的标签共同作用
+    matchLabels: #选择包含标签app:mysql的资源
+      app: mysql
+  template: #这是选择或创建的Pod的模板
+    metadata: #Pod的元数据
+      labels: #Pod的标签，上面的selector即选择包含标签app:mysql的Pod
+        app: mysql
+    spec: #期望Pod实现的功能（即在pod中部署）
+      containers: #生成container，与docker中的container是同一种
+        - name: ssx-mysql-c
+          image: mysql:5.7
+          ports:
+            - containerPort: 3306 # 开启本容器的80端口可访问
+          volumeMounts:
+            - mountPath: /var/lib/mysql #这是mysql容器内保存数据的默认路径
+              name: c-v-path
+            - mountPath: /etc/localtime
+              name: c-v-path-time
+          env: #容器运行前需设置的环境变量列表
+            - name: MYSQL_ROOT_PASSWORD #环境变量名称
+              value: "123456" #环境变量的值 这是mysqlroot的密码 因为是纯数字，需要添加双引号 不然编译报错
+      volumes:
+        - name: c-v-path #和上面保持一致 这是本地的文件路径，上面是容器内部的路径
+          hostPath:
+            path: /root/apps/k8s/for_docker_volume/mysql #此路径需要实现创建
+        - name: c-v-path-time #和上面保持一致 这是本地的文件路径，上面是容器内部的路径
+          hostPath:
+            path: /etc/localtime #此路径需要实现创建
+      nodeSelector: #把此pod部署到指定的node标签上
+        kubernetes.io/hostname: node2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mysql
+  name: ssx-mysql-sv
+  namespace: ssx-ns
+spec:
+  ports:
+    - port: 3306 #我暂时不理解，这个设置 明明没用到？
+      name: ssx-mysql-last
+      protocol: TCP
+      targetPort: 3306 # 容器nginx对外开放的端口 上面的dm已经指定了
+      nodePort: 31090 #外网访问的端口
+  selector:
+    app: mysql
+  type: NodePort

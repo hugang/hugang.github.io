@@ -1,0 +1,18 @@
+--centos安装redis
+yum -y install epel-release
+yum search redis
+yum install -y redis
+systemctl start redis
+
+--docker安装redis
+--docker
+docker run -d --name redis -p "6379:6379" redis:latest
+--docker-compose
+version: '3'
+services:
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./data/redis:/data"
