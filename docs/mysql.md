@@ -117,7 +117,9 @@ https://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.31-winx64.zip
 
 ### 初期化数据文件夹
 
-mysqld --user=mysql --basedir C:\tools\mysql-5.7.31-winx64 --datadir=C:\tools\mysql-5.7.31-winx64\data\ --log-error-v erbosity=3 --initialize-insecure
+<strike>mysqld --user=mysql --basedir C:\tools\mysql-5.7.31-winx64 --datadir=C:\tools\mysql-5.7.31-winx64\data\ --log-error-v erbosity=3 --initialize-insecure</strike>
+
+mysqld --initialize-insecure --user=mysql
 
 ### 启动服务
 mysqld --user=mysql &
