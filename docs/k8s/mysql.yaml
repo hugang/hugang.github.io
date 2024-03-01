@@ -28,7 +28,7 @@ spec:
         app: mysql-server
     spec:
       containers:
-        - image: mysql:8.0.35
+        - image: mysql:8.0.36
           name: mysql
           resources:
           env:
@@ -37,7 +37,8 @@ spec:
             - name: MYSQL_PASSWORD
               value: devuser
             - name: MYSQL_ROOT_PASSWORD
-              value: password
+              value: :q
+              ;:q
             - name: LANG
               value: C.UTF-8
           ports:

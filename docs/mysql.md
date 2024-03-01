@@ -136,3 +136,15 @@ flush privileges;
 Windows Error Message: Missing MSVCP120.dll File
 Update for Visual C++ 2013 and Visual C++ Redistributable Package
 http://download.microsoft.com/download/8/2/9/829ac8b2-e111-4f58-9b23-205a5e7d656a/vcredist_x64.exe
+
+
+### mysql 8.0.36
+
+```sql
+ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';
+flush privileges;
+
+CREATE USER 'root'@'%' IDENTIFIED BY '123456';
+GRANT ALL ON *.* TO 'root'@'%';
+FLUSH PRIVILEGES;
+```
