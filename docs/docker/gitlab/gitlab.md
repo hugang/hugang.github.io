@@ -27,8 +27,6 @@ services:
 Enter gitlab container
 sudo gitlab-rake "gitlab:password:reset"
 
-Nttdata03!
-
 
 ## Registe gitlab-runner
 docker run -d --network local-server-network --name gitlab-runner --restart always \
