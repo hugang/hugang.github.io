@@ -1,9 +1,7 @@
-#n:: ; 当按下Win+N时
-Gui, Destroy ; 关闭GUI
-Gui, Add, ListBox, vMyListBox gMyListBox h200, HearthstoneDeckTracker|Battle|WinSCP|Snipaste|heidisql|FSCapture ; 添加一个列表框，列出您的程序
-Gui, Show, , Select a program to run ; 显示GUI
-return
+; define a variable to remember the gui show status
+GuiShow = 0
 
+; define a gui to show the listbox
 MyListBox:
 Gui, Submit, NoHide
 if (A_GuiEvent = "DoubleClick") {
@@ -22,4 +20,22 @@ if (A_GuiEvent = "DoubleClick") {
     }
     Gui, Destroy ; 关闭GUI
 }
+
+; define a function to show the gui
+showGui() {
+    global GuiShow
+    if (%GuiShow% = 0) {
+        Gui, Add, ListBox, vMyListBox gMyListBox h200, HearthstoneDeckTracker|Battle|WinSCP|Snipaste|heidisql|FSCapture ; 添加一个列表框，列出您的程序
+        Gui, Show, , Select a program to run ; 显示GUI
+        GuiShow = 1
+    } else {
+        Gui, Destroy ; 关闭GUI
+        GuiShow = 0
+    }
+}
+
+; define a hotkey to show the gui
+#n:: ; win+n
+showGui()
 return
+
